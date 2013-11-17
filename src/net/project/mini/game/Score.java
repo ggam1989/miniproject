@@ -1,4 +1,4 @@
-package main;
+package net.project.mini.game;
 
 import java.awt.Color;
 
@@ -20,8 +20,4 @@ public class Score extends JFrame {
 		f.setVisible(true);
 	
 	}
-	
-	public static void main(String[] args) {
-	System.out.println("10´ë¸Â¾Ñ´Ï?");
-}
 }

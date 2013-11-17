@@ -1,4 +1,4 @@
-package main;
+package net.project.mini.game;
 
 
 import java.awt.Button;
@@ -14,65 +14,60 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-//È¸¿ø°¡ÀÔ ÇÁ·¹ÀÓ
+// íšŒì›ê°€ì… í”„ë ˆì„
 class Register implements ActionListener {
-	Logf pp;
-	JFrame f;
-	Font f1;
+	JFrame frame;
+	Font font;
 	Label pw, lb, name, id, pw_re, emailLabel_1, email_la, phone;
 	TextField pwt, id_t, tf, email_t_1, phone2, phone3, pwt_re, email_tf;
-	//ÀÌ¸§ : tf, ¾ÆÀÌµğ : id_t, ºñ¹Ğ¹øÈ£ : pwt, ºñ¹Ğ¹øÈ£2 : pwt_re,
-	//ÀÌ¸ŞÀÏ : email_t_1, µµ¸ŞÀÎemail_tf, ÇÚµåÆù : phone2, phone3
+	//ì´ë¦„ : tf, ì•„ì´ë”” : id_t, ë¹„ë°€ë²ˆí˜¸ : pwt, ë¹„ë°€ë²ˆí˜¸2 : pwt_re,
+    //ì´ë©”ì¼ : email_t_1, ë„ë©”ì¸email_tf, í•¸ë“œí° : phone2, phone3
 	CheckboxGroup cg;
 	Checkbox mm, ff;
 	Button b, b1, b2;
 	Choice email, phone1;
 
-	public Register(Logf pp) {
-		this.pp = pp;
-	}
-
 	public void actionPerformed(ActionEvent e) {
-		f = new JFrame();
-		f.setBounds(300, 300, 700, 600);
-		f.setLayout(null);
+		frame = new JFrame();
+		frame.setBounds(300, 300, 700, 600);
+		frame.setLayout(null);
 
-		lb = new Label("È¸ ¿ø °¡ ÀÔ");
-		f1 = new Font("±Ã¼­Ã¼", Font.BOLD + Font.ITALIC, 20);
-		lb.setFont(f1);
+		lb = new Label("íšŒ ì› ê°€ ì…");
+		font = new Font("ê¶ì„œì²´", Font.BOLD + Font.ITALIC, 20);
+		lb.setFont(font);
 		lb.setForeground(new Color(255, 0, 0));
 		lb.setBounds(30, 40, 800, 40);
 
-		pw_re = new Label("ºñ¹Ğ¹øÈ£È®ÀÎ:");
-		name = new Label("ÀÌ¸§");
-		tf = new TextField();//ÀÌ¸§
+		pw_re = new Label("ë¹„ë°€ë²ˆí˜¸í™•ì¸:");
+		name = new Label("ì´ë¦„");
+		tf = new TextField();//ì´ë¦„
 		cg = new CheckboxGroup();
-		mm = new Checkbox("³²ÀÚ", cg, true);
-		ff = new Checkbox("¿©ÀÚ", cg, false);
-		id = new Label("¾ÆÀÌµğ:");
+		mm = new Checkbox("ë‚¨ì", cg, true);
+		ff = new Checkbox("ì—¬ì", cg, false);
+		id = new Label("ì•„ì´ë””:");
 		id_t = new TextField();
-		b = new Button("¾ÆÀÌµğ Áßº¹ È®ÀÎ");
-		pw = new Label("ºñ¹Ğ¹øÈ£:");
+		b = new Button("ì•„ì´ë”” ì¤‘ë³µ í™•ì¸");
+		pw = new Label("ë¹„ë°€ë²ˆí˜¸:");
 		pwt = new TextField("");
 		pwt_re = new TextField("");
-		email_la = new Label("EmailÀÔ·Â :");
+		email_la = new Label("Emailì…ë ¥ :");
 		email_tf = new TextField();
 		emailLabel_1 = new Label("@");
 		email_t_1 = new TextField();
-		phone = new Label("ÇÚµåÆù ¹øÈ£ :");
+		phone = new Label("í•¸ë“œí° ë²ˆí˜¸ :");
 		phone1 = new Choice();
 		phone1.add("010");
 		phone1.add("011");
 		phone1.add("019");
 		phone2 = new TextField();
 		phone3 = new TextField();
-		b1 = new Button("È¸¿ø°¡ÀÔ");
+		b1 = new Button("íšŒì›ê°€ì…");
 		email = new Choice();
-		email.add("Á÷Á¢ ÀÔ·Â");
+		email.add("ì§ì ‘ ì…ë ¥");
 		email.add("naver.com");
 		email.add("daum.net");
 		email.add("google.com");
-		b2 = new Button("Ãë¼Ò");
+		b2 = new Button("ì·¨ì†Œ");
 
 		name.setBounds(50, 100, 80, 50);
 		tf.setBounds(140, 110, 80, 20);
@@ -97,33 +92,30 @@ class Register implements ActionListener {
 		b1.setBounds(200, 450, 80, 20);
 		b2.setBounds(300, 450, 80, 20);
 
-		f.add(lb);
-		f.add(name);
-		f.add(tf);
-		f.add(mm);
-		f.add(ff);
-		f.add(id);
-		f.add(id_t);
-		f.add(b);
-		f.add(pw);
-		f.add(pwt);
-		f.add(pw_re);
-		f.add(pwt_re);
-		f.add(email_la);
-		f.add(email_tf);
-		f.add(emailLabel_1);
-		f.add(email_t_1);
-		f.add(phone);
-		f.add(phone1);
-		f.add(phone2);
-		f.add(phone3);
-		f.add(email);
-		f.add(b1);
-		f.add(b2);
+		frame.add(lb);
+		frame.add(name);
+		frame.add(tf);
+		frame.add(mm);
+		frame.add(ff);
+		frame.add(id);
+		frame.add(id_t);
+		frame.add(b);
+		frame.add(pw);
+		frame.add(pwt);
+		frame.add(pw_re);
+		frame.add(pwt_re);
+		frame.add(email_la);
+		frame.add(email_tf);
+		frame.add(emailLabel_1);
+		frame.add(email_t_1);
+		frame.add(phone);
+		frame.add(phone1);
+		frame.add(phone2);
+		frame.add(phone3);
+		frame.add(email);
+		frame.add(b1);
+		frame.add(b2);
 
-		f.setVisible(true);
-	}
-
-	public static void main(String[] args) {
+		frame.setVisible(true);
 	}
 }
