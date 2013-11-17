@@ -5,7 +5,11 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +26,7 @@ public class LoginFrame {
 	JLabel idLabel, passwdLabel;
 	JButton loginBt, findIdBt, joinBt;
 
-	HashMap<String, String> map = new HashMap<String, String>();
+//	HashMap<String, String> map = new HashMap<String, String>();
 
 	public LoginFrame() {
 		loginFrame = new JFrame("회원가입");
@@ -58,11 +62,14 @@ public class LoginFrame {
 		joinBt.setBounds(70, 180, 280, 30);
 		loginFrame.add(joinBt);
 
-		map.put("aaa", "11");
-		map.put("bbb", "22");
-		map.put("ccc", "33");
-		map.put("ddd", "44");
-		map.put("eee", "55");
+//		map.put("aaa", "11");
+//		map.put("bbb", "22");
+//		map.put("ccc", "33");
+//		map.put("ddd", "44");
+//		map.put("eee", "55");
+		
+		
+		insertTestUsers();
 
 		loginFrame.setVisible(true);
 
@@ -76,32 +83,97 @@ public class LoginFrame {
 
 				Dialog dialog = new Dialog(loginFrame, "불일치!", true);
 
-				if (!map.containsKey(id)) {
-					dialog.setBounds(100, 100, 200, 150);
-					dialog.add(new Label("아이디가 존재하지 않습니다."));
-
-					dialog.addWindowListener(new WindowListener());
-					dialog.setVisible(true);
-
-					userId.setText("");
-					userId.requestFocus();
-				} else if (!map.get(id).equals(pw)) {
-					dialog.setBounds(100, 100, 200, 150);
-					dialog.add(new Label("암호가 일치하지 않습니다."));
-
-					dialog.addWindowListener(new WindowListener());
-					dialog.setVisible(true);
-					userPw.requestFocus();
-
-				} else {
-					// setVisible(false);
-					loginFrame.dispose();
-					new Client();
-
+				try {
+					Connection conn = getConnection();
+					PreparedStatement ps = conn.prepareStatement("SELECT * FROM User WHERE userId = ?");
+					ps.setString(1, id);
+					ResultSet rs = ps.executeQuery();
+					if (!rs.next()) {
+//					if (!map.containsKey(id)) {
+						dialog.setBounds(100, 100, 200, 150);
+						dialog.add(new Label("아이디가 존재하지 않습니다."));
+						
+						dialog.addWindowListener(new WindowListener());
+						dialog.setVisible(true);
+						
+						userId.setText("");
+						userId.requestFocus();
+					} else if (!rs.getString("password").equals(pw)) {
+//					} else if (!map.get(id).equals(pw)) {
+						dialog.setBounds(100, 100, 200, 150);
+						dialog.add(new Label("암호가 일치하지 않습니다."));
+						
+						dialog.addWindowListener(new WindowListener());
+						dialog.setVisible(true);
+						userPw.requestFocus();
+						
+					} else {
+						// setVisible(false);
+						loginFrame.dispose();
+						new Client();
+					}
+					ps.close();
+					conn.close();
+				} catch (Exception exeption) {
+					exeption.printStackTrace();
 				}
 			}
 		});
 		joinBt.addActionListener(new Register());
 
+	}
+	
+	
+//	CREATE TABLE `User` (
+//			  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+//			  `userId` varchar(255) DEFAULT NULL,
+//			  `password` varchar(255) DEFAULT NULL,
+//			  PRIMARY KEY (`id`)
+//			  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	
+	private void insertTestUsers() {
+		initDb();
+		insertUser("aaa", "11");
+		insertUser("bbb", "22");
+		insertUser("ccc", "33");
+	}
+	
+	private void initDb() {
+		Connection conn = getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement("DROP TABLE IF EXISTS User");
+			ps.executeUpdate();
+			
+			ps = conn.prepareStatement("CREATE TABLE User (id bigint(20) NOT NULL AUTO_INCREMENT, userId varchar(255) DEFAULT NULL, password varchar(255) DEFAULT NULL, PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+			ps.executeUpdate();
+			ps.close();
+			conn.close();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	
+	}
+
+
+	private void insertUser(String userId, String password){
+		Connection conn = getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO User(userId, password) VALUES(?,?)");
+			ps.setString(1, userId);
+			ps.setString(2, password);
+			ps.executeUpdate();
+			ps.close();
+			conn.close();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	private Connection getConnection(){
+		try {
+			return DriverManager.getConnection("jdbc:mysql://localhost/minisol", "root", "");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return null;
 	}
 }
