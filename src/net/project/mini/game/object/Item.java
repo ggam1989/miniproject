@@ -1,9 +1,6 @@
 package net.project.mini.game.object;
 
-public class Item {
-	private int x;
-	private int y;
-	
+public class Item  extends AbstractObjectPosition{
 	public Item() {}
 	
 	public Item(int x, int y) {
@@ -23,8 +20,8 @@ public class Item {
 		this.y = y;
 	}
 
-	public void move() { // x좌표 -3 만큼 이동 시키는 명령 메소드
+	public void move() { // 
 		// ix = (int)(Math.random() * 20 - 5);
-		y += 5; // x면 가로로 움직이고 y면 세로로 움직임
+		y += 5; 
 	}
 }

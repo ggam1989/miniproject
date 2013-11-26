@@ -1,10 +1,10 @@
 package net.project.mini.game.object;
 
-// ------------------------------------------------------------------미사일 클래스
+// ------------------------------------------------------------------
 public class Missile extends AbstractObjectPosition{
 	private int angle;
-	private int speed; // 미사을 스피드 변수(매개받기)
-	private int who;// player,boss 미사일 구분
+	private int speed; 
+	private int who;
 
 	public Missile(){}
 	
@@ -13,7 +13,7 @@ public class Missile extends AbstractObjectPosition{
 		this.x = x;
 		this.y = y;
 		this.angle = angle;
-		this.speed = speed; // 객체생성시 속도값을 추가로 받는다.
+		this.speed = speed; 
 		this.who = who;
 	}
 
@@ -40,21 +40,21 @@ public class Missile extends AbstractObjectPosition{
 		// my -= speed;
 		if (this.who == 0) {
 			this.x += Math.cos(Math.toRadians(angle)) * speed;
-			// 해당 방향으로 미사일 발사.
+			
 			this.y += Math.sin(Math.toRadians(angle)) * speed;
-			// 해당 방향으로 미사일 발사.
+			
 		}
 		if (this.who == 1) {
 			this.x -= Math.cos(Math.toRadians(angle)) * speed;
-			// 해당 방향으로 미사일 발사.
+		
 			this.y -= Math.sin(Math.toRadians(angle)) * speed;
-			// 해당 방향으로 미사일 발사.
+		
 		}
 		if (this.who == 2) {
 			this.x -= Math.cos(Math.toRadians(angle)) * speed;
-			// 해당 방향으로 미사일 발사.
+		
 			this.y -= Math.sin(Math.toRadians(angle)) * speed;
-			// 해당 방향으로 미사일 발사.
+		
 		}
 	}
 }
